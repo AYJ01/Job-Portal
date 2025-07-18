@@ -1,0 +1,75 @@
+{% extends 'Client/common.html' %}
+{% load static %}
+{% block header %}
+
+<br><br>
+<center>
+    <h2><b>Add Work</b></h2><br>
+</center>
+
+{% for i in messages %}
+<script>
+    alert("{{i}}")
+</script>
+{% endfor %}
+
+<div class="site-section bg-light">
+
+    <div class="container" style="background-color: rgb(211, 232, 250);">
+        <div class="row">
+            <div class="col-md-2" style="margin-left: 70px;"></div>
+            <div class="col-md-7 mb-5">
+                <form class="p-5 bg-white" style="padding-top:20px" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row form-group">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <label class="text-black" for="fname">Work Title </label>
+                            <input type="text" name="name" placeholder="Work Title" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="text-black" for="lname">Last date</label>
+                            <input type="date" name="ldate"  required
+                                 class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+
+                        <div class="col-md-12">
+                            <label class="text-black" for="subject">Password</label>
+                            <input type="password" name="password" class="form-control" required
+                                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+
+                        <div class="col-md-12">
+                            <label class="text-black" for="subject">Add Work File </label>
+                            <input type="file" name="work_file" class="form-control" required maxlength="6" minlength="6">
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <label class="text-black" for="message">Description</label>
+                            <textarea name="desc" required cols="30" rows="5" class="form-control"
+                                placeholder="Description"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <center>
+                                <input type="submit" value="Register Here" class="btn btn-primary py-2 px-4 text-white">
+                            </center>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

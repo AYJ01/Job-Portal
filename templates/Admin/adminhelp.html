@@ -1,0 +1,51 @@
+{% extends 'Admin/common.html' %}
+{% load static %}
+{% block header %}
+
+<section class="py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-md-10">
+        <div class="text-center mb-4">
+          <h3 class="fw-bold">Help And Support</h3>
+        </div>
+
+        <div class="box mb-4 d-flex flex-column gap-3">
+          {% for c in chats %}
+            {% if c.adminmessage %}
+              <div class="text-start">
+                <p class="d-inline-block p-3 rounded float-right bg-light shadow-sm" style="max-width: 100%;">
+                  {{ c.adminmessage }}
+                  <em class="d-block text-muted small">{{ c.date }}</em>
+                </p>
+              </div>
+            {% endif %}
+            {% if c.usermessage %}
+              <div class="text-end">
+                <p class="d-inline-block p-3 rounded bg-info text-white shadow-sm" style="max-width: 100%;">
+                  {{ c.usermessage }}
+                  <em class="d-block text-light small">{{ c.date }}</em>
+                </p>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+
+        <div class="box mb-4">
+          <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+              <textarea name="message" class="form-control" rows="4" placeholder="Type your message..." required></textarea>
+            </div>
+            <div class="text-end" >
+              <button type="submit" class="btn btn-dark" >Send</button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

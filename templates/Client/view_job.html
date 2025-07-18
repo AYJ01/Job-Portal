@@ -1,0 +1,72 @@
+{% extends 'Client/common.html' %}
+{% load static %}
+{% block header %}
+
+
+{% for i in messages %}
+<script>
+    alert("{{i}}")
+</script>
+{% endfor %}
+
+<!-- Include Bootstrap CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css">
+<style>
+    table {
+        text-align: center;
+
+    }
+    
+</style>
+
+<body>
+    <div class="container">
+        <h1 align="center" class="m-5">Job Vacancy</h1>
+        <input type="text" id="searchInput" class="form-control" placeholder="Search..."><br><br>
+        <table class="table table-striped table-bordered" border="1">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Experience</th>
+                    <th>Salary</th>
+                    <th>Job Type</th>
+                    <th>Date</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                {% for i in view %}
+                <tr id="row{{ forloop.counter }}">
+                    <td>{{ i.jname }}</td>
+                    <td>{{ i.ex_level }}</td>
+                    <td>{{ i.salary }}</td>
+                    <td>{{ i.job_type }}</td>
+                    <td>{{ i.date }}</td>
+                    <td><a href="/delete_job?id={{i.id}}"><img src="/static/assets/images/trash.png" alt="" width="40px"
+                                height="40px"></a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <br><br>
+
+    <!-- Include Bootstrap JS and jQuery -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Handle search input
+            $("#searchInput").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#tableBody tr").filter(function () {
+                    var rowText = $(this).text().toLowerCase();
+                    $(this).toggle(rowText.indexOf(value) > -1);
+                });
+            });
+        });
+    </script>
+
+    {% endblock %}

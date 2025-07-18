@@ -1,0 +1,90 @@
+{% extends 'User/common.html' %}
+{% load static %}
+{% block header %}
+
+<style>
+    #box:before {
+        content: "";
+        z-index: -1;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: linear-gradient(-45deg, #e81cff 0%, #40c9ff 78%);
+        transform: translate3d(0px, 0px, 10px) scale(0.83);
+        filter: blur(27px);
+        opacity: var(0.7);
+        transition: opacity 0.3s;
+        border-radius: inherit;
+    }
+
+    /* 
+* Prevents issues when the parent creates a 
+* stacking context. (For example, using the transform
+* property )
+*/
+    #box::after {
+        content: "";
+        z-index: -1;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        /* background: inherit; */
+        border-radius: inherit;
+    }
+</style>
+
+<br>
+
+<center>
+    <h1 style="padding-left: 100px;"><b>Works</b>
+        <hr style="width: 100px;position: relative;left: -510px;color: black;height: 2px;">
+    </h1>
+</center>
+<br>
+<section class="feature-area ">
+    <div class="container">
+        <div class="row">
+            {% for i in view %}
+            <div class="col-lg-4">
+                <div class="single-feature mb-4 mb-lg-0 p-3 mb-5 bg-white " id="box" style="border-radius: 20px;text-align: center;-webkit-box-shadow: 0px 0px 22px -3px rgba(59,68,235,1);
+                    -moz-box-shadow: 0px 0px 22px -3px rgba(59,68,235,1);
+                    box-shadow: 0px 0px 22px -3px rgba(59,68,235,1);"><br>
+                    <h4>{{i.title}}</h4>
+                    <p class="py-3">{{i.desc}}</p>
+                    {% if i.status == "Assigned" %}
+                    <a href="/freelacer_view_work?id={{i.id}}&status=started" class="secondary-btn">Start now<span
+                            class="flaticon-next"></span></a><br>
+                    {% elif i.status == "started" %}
+                    <a href="/freelacer_view_work?id={{i.id}}&status=Processing" class="secondary-btn">Started<span
+                            class="flaticon-next"></span></a><br>
+                    {% elif i.status == "Processing" %}
+                    <a href="/freelacer_view_work?id={{i.id}}&status=Completed" class="secondary-btn">Complete Now<span
+                            class="flaticon-next"></span></a><br>
+                    {% else %}
+                    <a class="secondary-btn">Completed<span class="fa fa-check-circle"></span></a><br>
+                    {% endif %}
+<br>
+                    <p>Payment :
+                    {% if i.payment == "Not_Paid" %}
+                         {{i.payment}}</p>
+                    <p class="secondary-btn" style="font-size: smaller; color: rgb(255, 214, 80);">{{i.status}}</p>
+
+                    {% else %}
+
+                    <a href="/user_payment_details?wid={{i.id}}" class="secondary-btn" style="font-size: smaller; color: rgb(255, 214, 80);">{{i.status}}  <i class="fa fa-check" aria-hidden="true" style="color: chartreuse;"></i> </a>
+
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+</section>
+<br>
+
+{% endblock %}

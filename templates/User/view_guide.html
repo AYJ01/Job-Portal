@@ -1,0 +1,70 @@
+{% extends 'User/common.html' %}
+{% load static %}
+{% block header %}
+
+<div class="container py-5">
+    <h2 class="text-center fw-bold mb-4"><u>Skill Enhancement Functionalities</u></h2>
+    <hr class="mb-5">
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for i in view %}
+        <div class="col d-flex align-items-stretch">
+            <div class="card shadow-sm rounded-4 border-0 w-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title fw-bold">{{ i.name }}</h5>
+                    <p class="card-text text-muted">{{ i.desc }}</p>
+                    <a href="{{ i.url }}" class="btn btn-outline-primary mt-2">Click Here to Watch Guide</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<section class="bg-light py-5 mt-5">
+    <div class="container">
+        <div class="row justify-content-center mb-4">
+            <div class="col-lg-8 text-center">
+                <h3 class="fw-bold mb-3">Help & Support</h3>
+                <hr class="mx-auto" style="width: 60px; height: 3px; background-color: #333;">
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="mb-4">
+                    {% for c in chats %}
+                        {% if c.adminmessage %}
+                            <div class="d-flex justify-content-start mb-2">
+                                <div class="bg-white p-3 rounded shadow-sm" style="max-width: 75%;">
+                                    <p class="mb-1">{{ c.adminmessage }}</p>
+                                    <small class="text-muted">{{ c.date }}</small>
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% if c.usermessage %}
+                            <div class="d-flex justify-content-end mb-2">
+                                <div class="bg-primary text-white p-3 rounded shadow-sm" style="max-width: 75%;">
+                                    <p class="mb-1">{{ c.usermessage }}</p>
+                                    <small class="text-white-50">{{ c.date }}</small>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+                <form method="post" class="bg-white p-4 shadow rounded">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <textarea name="message" class="form-control" rows="4" placeholder="Type your message..." required></textarea>
+                    </div>
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-dark">Send</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

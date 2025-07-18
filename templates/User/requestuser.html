@@ -1,0 +1,82 @@
+{% extends 'User/common.html' %}
+{% load static %}
+{% block header %}
+
+<style>
+  .request-card {
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease-in-out;
+    padding: 24px;
+  }
+  .request-card:hover {
+    transform: translateY(-5px);
+  }
+  .request-img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+  .btn-modern {
+    border-radius: 10px;
+    padding: 8px 16px;
+    font-weight: 500;
+  }
+  .status-pill {
+    font-size: 14px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 500;
+    display: inline-block;
+  }
+  .status-Requested { background-color: #ffe8a1; color: #856404; }
+  .status-Accepted { background-color: #d4edda; color: #155724; }
+  .status-Rejected { background-color: #f8d7da; color: #721c24; }
+</style>
+
+<section class="py-5">
+  <div class="container">
+    <h2 class="text-center fw-bold mb-5">Company Requests</h2>
+    <div class="row justify-content-center">
+      {% for d in requests %}
+      <div class="col-lg-10 mb-4">
+        <div class="request-card row g-3 align-items-center">
+          <div class="col-md-2 text-center">
+            <img src="/static/media/{{ d.company.image }}" class="request-img" alt="{{ d.company.name }}">
+            <p class="mt-2 fw-semibold">{{ d.company.name }}</p>
+          </div>
+
+          <div class="col-md-3">
+            <p class="mb-1"><i class="bi bi-envelope"></i> {{ d.company.email }}</p>
+            <p class="mb-1"><i class="bi bi-telephone"></i> {{ d.company.phone }}</p>
+            <p class="mb-1 fw-semibold">Salary: ₹{{ d.salary }}</p>
+          </div>
+
+          <div class="col-md-4">
+            <p class="mb-2"><strong>Details:</strong> {{ d.message }}</p>
+            <p class="mb-2 status-pill status-{{ d.status }}">{{ d.status }}</p>
+            {% if d.interviewdate %}
+              <p><strong>Interview:</strong> {{ d.interviewdate }} at {{ d.interviewtime }}</p>
+            {% endif %}
+            <p class="text-muted"><i class="bi bi-calendar"></i> {{ d.date }}</p>
+          </div>
+
+          <div class="col-md-3 d-flex flex-wrap gap-2">
+            {% if d.status == 'Requested' %}
+              <a href="/togglerequestuser?id={{ d.id }}&status=Accepted" class="btn btn-success btn-modern">Accept</a>
+              <a href="/togglerequestuser?id={{ d.id }}&status=Rejected" class="btn btn-danger btn-modern">Reject</a>
+            {% elif d.status == 'Interview Scheduled' %}
+              <a href="/togglerequestuser?id={{ d.id }}&status=Interview Scheduled Accepted" class="btn btn-success btn-modern">Accept</a>
+              <a href="/togglerequestuser?id={{ d.id }}&status=Accepted" class="btn btn-danger btn-modern">Reject</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% endblock %}

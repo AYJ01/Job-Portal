@@ -1,0 +1,177 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      height: 100%;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: linear-gradient(to bottom, #0F123B, #000);
+      color: #fff;
+    }
+
+    .container {
+      display: flex;
+      height: 100vh;
+      flex-direction: row;
+    }
+
+    .left-side {
+      flex: 1;
+      background-image: url('https://images.unsplash.com/photo-1686706763783-1378f598d8c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1287&q=80');
+      background-size: cover;
+      background-position: center;
+      display: none;
+    }
+
+    .right-side {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 30px;
+    }
+
+    .form-wrapper {
+      max-width: 400px;
+      width: 100%;
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      background: linear-gradient(to right, #121FCF, #CF1512);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+    }
+
+    p.subtitle {
+      opacity: 0.7;
+      margin: 10px 0 30px;
+      font-size: 0.95rem;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px 15px;
+      border: none;
+      border-radius: 6px;
+      background: #d2eaff;
+      font-size: 1rem;
+      color: #000;
+    }
+
+    .btn-submit {
+      width: 100%;
+      background-color: #30A2FF;
+      color: #fff;
+      border: none;
+      padding: 12px;
+      border-radius: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .btn-submit:hover {
+      background-color: #1c8ce8;
+    }
+
+    .bottom-text {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .bottom-text a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    @media (min-width: 768px) {
+      .left-side {
+        display: block;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .container {
+        flex-direction: column;
+      }
+
+      .left-side {
+        height: 200px;
+        display: block;
+      }
+
+      .right-side {
+        flex: none;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="left-side"></div>
+
+  <div class="right-side">
+    <div class="form-wrapper">
+      {% for i in messages %}
+      <script>alert("{{i}}");</script>
+      {% endfor %}
+
+      <form method="post">
+        {% csrf_token %}
+        <h2>Nice to see you!</h2>
+        <p class="subtitle">Enter your email and password to sign in</p>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="text" name="email" id="email" placeholder="Your email address" required>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" name="password" id="password" placeholder="Your password" required>
+        </div>
+
+        <button type="submit" class="btn-submit">SIGN IN</button>
+
+        <div class="bottom-text">
+          Don't have an account? <a href="/">Home</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

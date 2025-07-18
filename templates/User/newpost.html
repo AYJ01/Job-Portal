@@ -1,0 +1,136 @@
+{% extends 'User/common.html' %}
+{% load static %}
+{% block header %}
+
+<style>
+    .post-card {
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        overflow: hidden;
+    }
+
+    .post-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    .post-card img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+    }
+
+    .post-card-body {
+        padding: 20px;
+    }
+
+    .post-card h3 {
+        font-size: 22px;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: #2d2d2d;
+    }
+
+    .post-card p {
+        font-size: 15px;
+        color: #555;
+        margin-bottom: 20px;
+    }
+
+    .btn-delete {
+        background-color: #dc3545;
+        border: none;
+        padding: 10px 20px;
+        font-size: 14px;
+        border-radius: 8px;
+        color: white;
+        transition: background-color 0.2s;
+    }
+
+    .btn-delete:hover {
+        background-color: #b52a37;
+    }
+
+    .form-wrapper {
+        background-color: #f9f9f9;
+        padding: 30px;
+        border-radius: 16px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    }
+
+    .form-control {
+        border-radius: 10px;
+        padding: 12px;
+        font-size: 15px;
+    }
+
+    .btn-submit {
+        background-color: #007bff;
+        padding: 12px;
+        border-radius: 10px;
+        font-size: 16px;
+        width: 100%;
+        color: white;
+        border: none;
+        transition: background-color 0.2s;
+    }
+
+    .btn-submit:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<section>
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">My Posts</h2>
+        </div>
+        <div class="row g-4 justify-content-center">
+            {% for d in posts %}
+            <div class="col-lg-4 col-md-6">
+                <div class="post-card">
+                    <img src="/static/media/{{ d.image }}" alt="{{ d.title }}">
+                    <div class="post-card-body">
+                        <h3>{{ d.title }}</h3>
+                        <p>{{ d.desc }}</p>
+                        <a href="/delete_post?id={{ d.id }}" class="btn-delete">Delete</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container pb-5">
+        <div class="text-center mb-4">
+            <h2 class="fw-bold">Add a New Post</h2>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="form-wrapper">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <input type="text" name="title" placeholder="Enter Post Title" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <input type="file" name="image" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <textarea name="description" placeholder="Enter Post Description" class="form-control" rows="4" required></textarea>
+                        </div>
+                        <div>
+                            <input type="submit" value="Add Post" class="btn-submit">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

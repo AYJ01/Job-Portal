@@ -1,0 +1,106 @@
+{% extends 'Admin/common.html' %}
+{% load static %}
+{% block header %}
+
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .section-title {
+        font-weight: 700;
+        font-size: 2rem;
+        color: #2c3e50;
+    }
+
+    .user-card {
+        backdrop-filter: blur(10px);
+        background: #393d5d;
+        border-radius: 16px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: all 0.3s ease-in-out;
+        width: 100%;
+        max-width: 320px;
+        position: relative;
+    }
+
+    .user-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+    }
+
+    .user-img {
+        height: 180px;
+        background-size: cover;
+        background-position: center;
+        border-top-left-radius: 16px;
+        border-top-right-radius: 16px;
+    }
+
+    .card-body {
+        padding: 20px;
+        color: #ffffff;
+    }
+
+    .card-body h5 {
+        font-weight: 600;
+        margin-bottom: 5px;
+        font-size: 1.2rem;
+        color: white;
+    }
+
+    .card-body p {
+        margin-bottom: 15px;
+        color: #ffffff;
+        font-size: 0.9rem;
+    }
+
+    .card-actions {
+        padding: 0 20px 20px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .card-actions a {
+        flex: 1;
+        text-align: center;
+        font-size: 0.85rem;
+    }
+
+    @media (max-width: 576px) {
+        .user-card {
+            max-width: 100%;
+        }
+    }
+</style>
+
+<div class="container my-5">
+    <div class="text-center mb-5">
+        <h2 class="section-title">View Users</h2>
+    </div>
+    <div class="row justify-content-center">
+        {% for i in view %}
+        <div class="col-lg-4 col-md-6 col-sm-10 d-flex justify-content-center mb-4">
+            <div class="user-card">
+                <div class="user-img" style="background-image: url(/static/media/{{ i.image }});"></div>
+                <div class="card-body">
+                    <h5>{{ i.name }}</h5>
+                    <p>{{ i.email }}</p>
+                </div>
+                <div class="card-actions">
+                    {% if not i.loginid.is_active %}
+                    <a href="/approve_client?cid={{ i.loginid_id }}&utype=User" class="btn btn-primary btn-sm">Approve</a>
+                    {% else %}
+                    <a href="/reject_client?cid={{ i.loginid_id }}&utype=User" class="btn btn-danger btn-sm">Remove</a>
+                    {% endif %}
+                    <a href="/adminhelp?id={{ i.id }}" class="btn btn-outline-warning btn-sm">Help & Support</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,97 @@
+{% extends 'Client/common.html' %}
+{% load static %}
+{% block header %}
+
+<br>
+<div class="container-fluid content-top-gap" style="width: 80%;">
+    <!-- chatting -->
+    <div class="data-tables">
+        <div class="row">
+            <div class="col-lg-12 chart-grid mb-4">
+                <div class="card card_border p-4"
+                    style="background-image:  url('/static/media/profile/chat_bg.png'); border-radius: 20px; ">
+                    <div class="card-header chart-grid__header pl-0 pt-0 ">
+                        <b style="margin: 10px;margin-top: 20px;">Chatting</b>
+                    </div>
+                    <div class="messaging">
+                        <div class="inbox_msg">
+                            <div class="inbox_people">
+                                <!-- <div class="headind_srch">
+                     <div class="srch_bar">
+                        <div class="stylish-input-group">
+                        <input type="text" class="search-bar" placeholder="Search Chat">
+                        <span class="input-group-addon">
+                            <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                        </span> </div>
+                    </div> 
+                    </div> -->
+                            </div>
+                            <div class="mesgs">
+                                {% if chats %}
+
+                                <div class="msg_history">
+                                    {% for message in chats %}
+                                    {% if message.type == "Client" %}
+                                    <div class="incoming_msg">
+                                        <div class="incoming_msg_img">
+                                            <img src="/static/chat/media/du1.jpg" alt="" class="img-fluid">
+                                        </div>
+                                        <div class="received_msg">
+                                            <div class="received_withd_msg">
+                                                <p
+                                                    style="text-transform: unset; background-color: rgb(192, 213, 252);width: 400px;padding: 10px;border-radius: 10px;color: black;">
+                                                    {{message.message}} <br><span class="time_date"
+                                                        style="font-size: 10px;"> {{message.date}}
+                                                        {{message.time}}</span></p>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% else %}
+                                    <div class="outgoing_msg" style="margin-left: 600px;">
+                                        <div class="sent_msg">
+                                            <p
+                                                style="text-transform: unset; background-color: rgb(192, 213, 252);width: 400px;padding: 10px;border-radius: 10px;color: black;">
+                                                {{message.message}} <br><span class="time_date"
+                                                    style="font-size: 10px;"><span class="time_date">{{message.date}}|{{message.time}}</span></p>
+
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                                <div class="type_msg"><br>
+                                    <div class="input_msg_write">
+                                        <form method="post">
+                                            {% csrf_token %}
+                                            <input type="text" name="message" class="form-control"
+                                                placeholder="Type a message" /> <br>
+                                            <button type="submit" style="float: right;position: relative;top: -62px;"
+                                                class="btn btn-success" type="button">Send&nbsp;<i
+                                                    class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                                            <p></p>
+                                        </form>
+
+                                    </div>
+                                    <br />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //chatting -->
+</div>
+
+{% if msg %}
+<script>
+    alert("{{msg}}");
+</script>
+{% endif %}
+
+
+
+{% endblock %}

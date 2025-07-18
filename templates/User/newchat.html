@@ -1,0 +1,52 @@
+{% extends 'User/common.html' %}
+{% load static %}
+{% block header %}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow rounded-4">
+                <div class="card-header bg-primary text-white rounded-top-4">
+                    <h5 class="mb-0">Chat Interface</h5>
+                </div>
+                <div class="card-body bg-light" style="max-height: 500px; overflow-y: auto;">
+                    {% if chats %}
+                    {% for message in chats %}
+                        {% if message.type == "Client" %}
+                        <div class="d-flex align-items-start mb-4">
+                            <img src="/static/chat/media/du1.jpg" alt="user" class="rounded-circle me-3" width="40" height="40">
+                            <div class="bg-white p-3 rounded-3 shadow-sm" style="max-width: 70%;">
+                                <p class="mb-1 text-dark">{{ message.message }}</p>
+                                <div class="text-muted small">{{ message.date }} {{ message.time }}</div>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="d-flex justify-content-end mb-4">
+                            <div class="bg-primary text-white p-3 rounded-3 shadow-sm" style="max-width: 70%;">
+                                <p class="mb-1">{{ message.message }}</p>
+                                <div class="text-white-50 small">{{ message.date }} | {{ message.time }}</div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="card-footer bg-white border-top rounded-bottom-4">
+                    <form method="post" class="d-flex align-items-center">
+                        {% csrf_token %}
+                        <input type="text" name="message" class="form-control me-2" placeholder="Type a message" required>
+                        <button type="submit" class="btn btn-primary">Send <i class="fa fa-paper-plane ms-1"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if msg %}
+<script>
+    alert("{{msg}}");
+</script>
+{% endif %}
+
+{% endblock %}

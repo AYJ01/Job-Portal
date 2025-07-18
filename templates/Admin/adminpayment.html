@@ -1,0 +1,70 @@
+{% extends 'Admin/common.html' %}
+{% load static %}
+{% block header %}
+
+
+<div class="site-section bg-light" style="border-radius: 10px;">
+
+    <div class="container" style="background-color: rgb(211, 232, 250);"><br>
+        <center><h2><b>Add Payment</b></h2></center>
+        <br>
+        <div class="row">
+            <div class="col-md-2" style="margin-left: 70px;"></div>
+            <div class="col-md-7 mb-5">
+                <form class="p-5 bg-white" style="padding-top:20px" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row form-group">
+                        <div class="col-md-12 mb-3 mb-md-0">
+                            <label class="text-black" for="fname">Current User Payment</label>
+                            <input type="text" name="useramount" placeholder="Enter Amount" value="{{ amounts.user_amount }}" class="form-control" required>
+                        </div>
+                        <div class="col-md-12 mb-3 mb-md-0">
+                            <label class="text-black" for="utype">Current Client Payment</label>
+                            <input type="text" name="clientamount" placeholder="Enter Amount" value="{{ amounts.client_amount }}" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <center>
+                                <input type="submit" value="Add Now" class="btn btn-primary py-2 px-4 text-white">
+                            </center>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="site-section bg-light" style="border-radius: 10px;">
+
+    <div class="container" style="background-color: rgb(211, 232, 250);"><br>
+        <center><h2><b>User Payments</b></h2></center>
+        <br>
+        <div class="row">
+            <div class="col-md-2" style="margin-left: 70px;"></div>
+            <div class="col-md-7 mb-5">
+                <table class="table table-light">
+                    <tr>
+                        <th>User</th>
+                        <th>Payment date</th>
+                        <th>Status</th>
+                    </tr>
+                    {% for i in userpayment %}
+                    <tr>
+                        <td>{{ i.user }}</td>
+                        <td>{{ i.date }}</td>
+                        <td>{{ i.user.status }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

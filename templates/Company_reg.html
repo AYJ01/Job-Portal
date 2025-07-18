@@ -1,0 +1,121 @@
+{% extends 'common.html' %}
+{% load static %}
+{% block header %}
+
+<br><br>
+<center>
+    <h2><b>Company Registration</b></h2><br>
+</center>
+
+{% for i in messages %}
+<script>
+    alert("{{i}}")
+</script>
+{% endfor %}
+
+<div class="site-section bg-light">
+
+    <div class="container" style="background-color: rgb(211, 232, 250);">
+        <div class="row">
+            <div class="col-md-2" style="margin-left: 70px;"></div>
+            <div class="col-md-7 mb-5">
+                <form class="p-5 bg-white" style="padding-top:20px" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row form-group">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <label class="text-black" for="fname">Company Name</label>
+                            <input type="text" name="name" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="text-black" for="lname">Mobile Number</label>
+                            <input type="text" name="phone" maxlength="10" minlength="10" required
+                                pattern="[6789][0-9]{9}" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+
+                        <div class="col-md-12">
+                            <label class="text-black" for="email">Email</label>
+                            <input type="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                                class="form-control" required pattern="">
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+
+                        <div class="col-md-12">
+                            <label class="text-black" for="subject">Password</label>
+                            <input type="password" name="password" class="form-control" required
+                                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters">
+                        </div>
+                    </div>
+                    <!-- <div class="row form-group">
+
+                        <div class="col-md-12">
+                            <label class="text-black" for="subject">Pincode</label>
+                            <input type="text" name="pin" class="form-control" required maxlength="6" minlength="6">
+                        </div>
+                    </div> -->
+                    <div class="row form-group">
+
+                        <div class="col-md-12">
+                            <label class="text-black" for="subject">Image</label>
+                            <input type="file" name="image" class="form-control" required >
+                        </div>
+                    </div>
+                    <div class="row form-group">
+
+                        <div class="col-md-12">
+                            <label class="text-black" for="subject">Proof</label>
+                            <input type="file" name="proof" class="form-control" required >
+                        </div>
+                    </div>
+                    <!-- <div class="row form-group">
+
+                        <div class="col-md-12">
+                            <label class="text-black" for="subject">District</label>
+                            <select id="" class="form-control" name="District" required>
+                                <option value="" selected disabled>Select District</option>
+                                <option value="Alappuzha">Alappuzha</option>
+                                <option value="Ernakulam">Ernakulam</option>
+                                <option value="Kozhikode">Kozhikode</option>
+                                <option value="Palakkad">Palakkad</option>
+                                <option value="Kollam">Kannur</option>
+                                <option value="Kasaragod">Kasaragod</option>
+                                <option value="Idukki">Idukki</option>
+                                <option value="Kottayam">Kottayam</option>
+                                <option value="Thrissur">Thrissur</option>
+                                <option value="Pathanamthitta">Pathanamthitta</option>
+                                <option value="Malappuram">Malappuram</option>
+                                <option value="Wayanad ">Wayanad </option>
+                                <option value="Thiruvananthapuram">Thiruvananthapuram </option>
+                            </select>
+                           
+                        </div>
+                    </div> -->
+
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <label class="text-black" for="message">Address</label>
+                            <textarea name="address" required cols="30" rows="5" class="form-control"
+                                placeholder="Your Address"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <center>
+                                <input type="submit" value="Register Here" class="btn btn-primary py-2 px-4 text-white">
+                            </center>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,115 @@
+{% extends 'User/common.html' %}
+{% load static %}
+{% block header %}
+<br><br>
+<!-- Header Area End -->
+
+<!-- Search Area Starts -->
+<div class="search-area">
+    <div class="search-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <form action="#" class="d-md-flex justify-content-between" style="border-radius: 10px;">
+                        <input type="text" id="searchInput" style="width: 98%;" class="template-btn"
+                            placeholder="Search Keywords Here" onfocus="this.placeholder = ''"
+                            onblur="this.placeholder = 'Search Keyword'" required>
+                        <i class="fa fa-search" style="position: relative;left: -40px;top:16px;color: cornflowerblue;"
+                            aria-hidden="true"></i>
+                        <!-- <button type="submit" class="template-btn">find job</button> -->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Search Area End --> <br>
+<center>
+    <h1 id="txt"><b>Search Jobs</b></h1>
+</center>
+<!-- Jobs Area Starts -->
+<section class="jobs-area 
+    ">
+    <div class="container">
+        <div class="row">
+            {% for i in view %}
+            <div class="col-lg-12">
+                <div class="new">
+                    <div class="single-job mb-4 d-lg-flex justify-content-between">
+                        <div class="job-text">
+                            <h4>{{i.jname}}</h4>
+                            <span style="color: lightsalmon;">{{i.cid.name}}</span>
+                            <ul class="mt-4">
+                                <li class="mb-3">
+                                    <h5><i class="fa fa-briefcase" aria-hidden="true"></i>{{i.job_type}}</h5>
+                                </li>
+                                <li class="mb-3">
+                                    <h5><i class="fa fa-money"></i>{{i.salary}}</h5>
+                                </li>
+                                <li class="mb-3">
+                                    <h5><i class="fa fa-pie-chart"></i>Experience : {{i.ex_level}}</h5>
+                                </li>
+                                <li  class="mb-3">
+                                    <h5><i class="fa fa-clock-o"></i>Posted On : {{i.date}}</h5>
+                                </li>
+                                <li  class="mb-3">
+                                    <h5><i class="fa fa-map-marker" style="color: rgb(226, 60, 60);"></i>Location  : {{i.cid.address}}</h5>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="job-img align-self-center">
+                            <img src="/static/media/{{i.image}}" alt="job" width="150px"
+                                style="border-top-left-radius: 50px; border-bottom-right-radius: 50px;">
+                        </div>
+                        <div class="job-btn align-self-center">
+                            <a href="/userchat?cid={{i.cid_id}}&email={{i.cid.email}}" class="third-btn">Chat</a>
+                            <a href="/apply_job?jid={{i.id}}&cid={{i.cid_id}}" class="third-btn">apply</a>
+                            <div class="row form-group">
+                                <div class="col-md-12"><br>
+                                    <center>
+                                        <a href="/userfeedbacks?wid={{ i.id }}" class="btn btn-outline-secondary">Feedbacks</a>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <center>
+                    <div id="noMatchingData" style="display: none;">
+                        <h1 class="m-5">No Results Found</h1>
+                    </div>
+                </center>
+            </div>
+            {% endfor %}
+        </div>
+        <!-- <div class="more-job-btn mt-5 text-center">
+                    <a href="#" class="template-btn">more job post</a>
+                </div> -->
+    </div>
+</section><br><br>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#searchInput').on('input', function () {
+            var searchQuery = $(this).val().toLowerCase();
+            filterProducts(searchQuery);
+        });
+    });
+
+    function filterProducts(query) {
+        $('.new').each(function () {
+            var productText = $(this).text().toLowerCase();
+            if (productText.includes(query)) {
+                $(this).show();
+                $("#noMatchingData").hide();
+                $("#txt").show();
+            } else {
+                $("#noMatchingData").show();
+                $("#txt").hide();
+                $(this).hide();
+            }
+        });
+    }
+</script>
+{% endblock %}

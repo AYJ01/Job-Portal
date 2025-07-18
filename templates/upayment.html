@@ -1,0 +1,164 @@
+{% load static %}
+{% csrf_token %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Payment</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- CSS Styles -->
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <style>
+        /* Background & Font */
+        body {
+            background: linear-gradient(to right, rgba(235,224,232,1) 52%, rgba(254,191,1,1) 53%, rgba(254,191,1,1) 100%);
+            font-family: 'Roboto', sans-serif;
+        }
+
+        /* Card Container */
+        .card {
+            border: none;
+            max-width: 450px;
+            border-radius: 15px;
+            margin: 150px auto;
+            padding: 35px 20px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            background: #fff;
+        }
+
+        /* Heading */
+        .heading {
+            color: #C1C1C1;
+            font-size: 14px;
+            font-weight: 500;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Form Styling */
+        .form-group input {
+            border-bottom: 1.5px solid #E8E5D2 !important;
+            font-weight: bold;
+            border-radius: 0;
+            border: 0;
+            width: 100%;
+            padding: 5px;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-bottom: 1.5px solid #F3A002 !important;
+        }
+
+        /* Labels */
+        .text-warning {
+            font-size: 12px;
+            font-weight: 500;
+            color: #edb537 !important;
+        }
+
+        /* Card Image */
+        .card-image {
+            display: block;
+            width: 64px;
+            height: 60px;
+            margin-left: auto;
+        }
+
+        /* Submit Button */
+        .btn {
+            background: #F3A002 !important;
+            border: none;
+            border-radius: 30px;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .btn:focus {
+            box-shadow: none;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-sm-12">
+                <div class="card">
+                    <p class="heading">PAYMENT DETAILS</p>
+
+                    <form class="card-details" method="post">
+                        {% csrf_token %}
+
+                        <!-- Card Number -->
+                        <div class="form-group">
+                            <p class="text-warning mb-0">Card Number</p>
+                            <div class="d-flex align-items-center">
+                                <input type="text" name="card-num" placeholder="1234 5678 9012 3457" id="cno" minlength="16" maxlength="16">
+                                <img class="card-image" src="https://img.icons8.com/color/48/000000/visa.png" alt="Visa">
+                            </div>
+                        </div>
+
+                        <!-- Cardholder Name -->
+                        <div class="form-group">
+                            <p class="text-warning mb-0">Cardholder's Name</p>
+                            <input type="text" name="name" placeholder="Name">
+                        </div>
+
+                        <!-- Expiration & CVV -->
+                        <div class="row">
+                            <div class="col-sm-6 form-group">
+                                <p class="text-warning mb-0">Expiration</p>
+                                <input type="month" name="exp" id="event-date" placeholder="MM/YYYY">
+                            </div>
+                            <div class="col-sm-6 form-group">
+                                <p class="text-warning mb-0">CVV</p>
+                                <input type="password" name="cvv" placeholder="&#9679;&#9679;&#9679;" minlength="3" maxlength="3">
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn">
+                            Pay {{ amount }} <i class="fa fa-arrow-circle-right"></i>
+                        </button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Prevent past months in expiration date
+        document.addEventListener('DOMContentLoaded', function() {
+            var cardExpiryInput = document.getElementById('event-date');
+            var today = new Date();
+            var currentYear = today.getFullYear();
+            var currentMonth = today.getMonth() + 1; // JS months are 0-indexed
+            var minDate = currentYear + '-' + String(currentMonth).padStart(2, '0');
+            cardExpiryInput.setAttribute('min', minDate);
+        });
+    </script>
+
+</body>
+
+</html>

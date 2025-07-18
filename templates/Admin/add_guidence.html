@@ -1,0 +1,53 @@
+{% extends 'Admin/common.html' %}
+{% load static %}
+{% block header %}
+
+
+<div class="site-section bg-light" style="border-radius: 10px;">
+
+    <div class="container" style="background-color: rgb(211, 232, 250);"><br>
+        <center><h2><b>Add Guidence</b></h2></center>
+        <br>
+        <div class="row">
+            <div class="col-md-2" style="margin-left: 70px;"></div>
+            <div class="col-md-7 mb-5">
+                <form class="p-5 bg-white" style="padding-top:20px" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row form-group">
+                        <div class="col-md-12 mb-3 mb-md-0">
+                            <label class="text-black" for="fname">Enter name </label>
+                            <input type="text" name="name" placeholder="Enter name" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+
+                        <div class="col-md-12">
+                            <label class="text-black" for="subject">Source Link</label>
+                            <input type="url" name="url" class="form-control" placeholder="Provide the source code link" required title="Provide the source code link">
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <label class="text-black" for="message">Description</label>
+                            <textarea name="desc" required cols="30" rows="5" class="form-control"
+                                placeholder="Enter the message for Guidence"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <center>
+                                <input type="submit" value="Add Now" class="btn btn-primary py-2 px-4 text-white">
+                            </center>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

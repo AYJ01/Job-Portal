@@ -1,0 +1,254 @@
+{% extends 'Client/common.html' %}
+{% load static %}
+{% block header %}
+
+<!-- Alert message -->
+{% if messages %}
+{% for i in messages %}
+<script>
+    alert("{{i}}");
+</script>
+{% endfor %}
+{% endif %}
+<!-- Alert Message End -->
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;700&display=swap');
+
+    img {
+        max-width: 100%;
+        width: 500px;
+        display: block;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    /* Utilities */
+    .card::after,
+    .card img {
+        border-radius: 50%;
+    }
+
+    .card,
+    .stats {
+        display: flex;
+    }
+
+    .card {
+        padding: 2.5rem 2rem;
+        border-radius: 10px;
+        background-color: rgba(255, 255, 255, .5);
+        max-width: 500px;
+        box-shadow: 0 0 30px rgba(0, 0, 0, .15);
+        margin: 1rem;
+        position: relative;
+        transform-style: preserve-3d;
+        overflow: hidden;
+    }
+
+    .card::before,
+    .card::after {
+        content: '';
+        position: absolute;
+        z-index: -1;
+    }
+
+    .card::before {
+        width: 100%;
+        height: 100%;
+        border: 1px solid #FFF;
+        border-radius: 10px;
+        top: -.7rem;
+        left: -.7rem;
+    }
+
+    .card::after {
+        height: 15rem;
+        width: 15rem;
+        background-color: #4172f5aa;
+        top: -8rem;
+        right: -8rem;
+        box-shadow: 2rem 6rem 0 -3rem #FFF
+    }
+
+    .card img {
+        width: 8rem;
+        min-width: 80px;
+        box-shadow: 0 0 0 5px #FFF;
+    }
+
+    .infos {
+        margin-left: 1.5rem;
+    }
+
+    .name {
+        margin-bottom: 1rem;
+    }
+
+    .name h2 {
+        font-size: 1.3rem;
+    }
+
+    .name h4 {
+        font-size: .8rem;
+        color: #333
+    }
+
+    .text {
+        font-size: .9rem;
+        margin-bottom: 1rem;
+    }
+
+    .stats {
+        margin-bottom: 1rem;
+    }
+
+    .stats li {
+        min-width: 5rem;
+    }
+
+    .stats li h3 {
+        font-size: .99rem;
+    }
+
+    .stats li h4 {
+        font-size: .75rem;
+    }
+
+    .links button {
+        font-family: 'Poppins', sans-serif;
+        min-width: 120px;
+        padding: .5rem;
+        border: 1px solid #222;
+        border-radius: 5px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all .25s linear;
+    }
+
+    .links .follow,
+    .links .view:hover {
+        background-color: #222;
+        color: #FFF;
+    }
+
+    .links .view,
+    .links .follow:hover {
+        background-color: transparent;
+        color: #222;
+    }
+
+    @media screen and (max-width: 450px) {
+        .card {
+            display: block;
+        }
+
+        .infos {
+            margin-left: 0;
+            margin-top: 1.5rem;
+        }
+
+        .links button {
+            min-width: 100px;
+        }
+    }
+
+    #hii {
+        width: 250px;
+        height: 260px;
+    }
+</style>
+<div class="search-area">
+    <div class="search-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <form action="#" class="d-md-flex justify-content-between" style="border-radius: 10px;">
+                        <input type="text" id="searchInput" style="width: 98%;" class="template-btn"
+                            placeholder="Search Keywords Here" onfocus="this.placeholder = ''"
+                            onblur="this.placeholder = 'Search Keyword'" required>
+                        <i class="fa fa-search" style="position: relative;left: -40px;top:16px;color: cornflowerblue;"
+                            aria-hidden="true"></i>
+                        <!-- <button type="submit" class="template-btn">find job</button> -->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="pricing-table "><br>
+    <div class="container">
+        <div class="row">
+            {% for i in view %}
+            <div class="col-md-4">
+                <!-- <form action="" method="post" enctype="multipart/form-data"> -->
+
+                <div class="card">
+                    <center>
+                        <div class="img">
+                            <img id="hii" src="/static/media/{{i.image}}">
+                        </div><br>
+                        <div class="infos">
+                            <div class="name">
+                                <h2 style="font-size: xx-large;"><b>{{ i.name}}</b></h2>
+                                <h4> @{{ i.title}}</h4>
+                            </div>
+                            <p style="font-size:16px;padding: 0;margin-left: -20px;white-space: nowrap;">
+                                <span><i class="fa fa-envelope mr-2" style="color: rgb(255, 30, 0);"
+                                        aria-hidden="true"></i>{{i.email}}</span>
+                            </p>
+                            <p class="text">
+                                <i class="fa fa-phone" style="color: rgb(0, 255, 98);"
+                                    aria-hidden="true"></i><span>&nbsp;&nbsp;&nbsp;{{i.phone}}</span>
+                            </p>
+                            {% if i.rating %}
+                            <p>{{i.rating}}⭐</p>
+                            {% endif %}
+                    </center>
+                    <center>
+                        <div class="links">
+
+                            <a href="/clientchat?id={{i.id}}&email={{i.email}}"><button
+                                    class="view  btn-md btn-block">Chat&nbsp;&nbsp;<i class="fa fa-comments-o"
+                                        style="color: chartreuse;" aria-hidden="true"></i></button></a>
+                        </div>+
+                    </center>
+                </div>
+            </div>
+            <center>
+                <div id="noMatchingData" style="display: none;">
+                    <h1 class="m-5">No Results Found</h1>
+                </div>
+            </center>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#searchInput').on('input', function () {
+            var searchQuery = $(this).val().toLowerCase();
+            filterProducts(searchQuery);
+        });
+    });
+
+    function filterProducts(query) {
+        $('.card').each(function () {
+            var productText = $(this).text().toLowerCase();
+            if (productText.includes(query)) {
+                $(this).show();
+                $("#noMatchingData").hide();
+            } else {
+                $("#noMatchingData").show();
+                $(this).hide();
+            }
+        });
+    }
+</script>
+
+{% endblock %}
